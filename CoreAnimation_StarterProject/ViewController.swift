@@ -29,6 +29,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
+        setupViews()
+        
+        //Setting Delegates
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+    }
+    
+    func setupViews() {
         let blueColor : UIColor = UIColor( red: 68.0/255, green: 126.0/255, blue:194.0/255, alpha: 1.0 )
         
         //Implementing Layers,Border Color & Width
@@ -40,14 +49,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.layer.borderWidth = 1
         passwordTextField.layer.cornerRadius = 15
         loginButton.layer.cornerRadius = 15
-        
-        //Setting Delegates
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
-        
-        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        loginLabel.center.y -= view.bounds.width
+        emailTextField.center.x -= view.bounds.width
+        passwordTextField.center.x += view.bounds.width
     }
 
+    override func viewDidAppear(animated: Bool) {
+        
+        UIView.animateWithDuration(2.0, animations: {
+            self.loginLabel.center.y += self.view.bounds.width
+        })
+
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
