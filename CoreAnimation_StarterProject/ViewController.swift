@@ -55,6 +55,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         loginLabel.center.y -= view.bounds.width
         emailTextField.center.x -= view.bounds.width
         passwordTextField.center.x += view.bounds.width
+        loginButton.alpha = 0.0
+        cloud1.alpha = 0.0
+        cloud2.alpha = 0.0
+        cloud3.alpha = 0.0
+        cloud4.alpha = 0.0
+        
+        
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -62,7 +69,53 @@ class ViewController: UIViewController, UITextFieldDelegate {
         UIView.animateWithDuration(2.0, animations: {
             self.loginLabel.center.y += self.view.bounds.width
         })
+        
+        UIView.animateWithDuration(1.5, delay: 0.5,
+                                   usingSpringWithDamping: 0.3,
+                                   initialSpringVelocity: 0.5,
+                                   options: [], animations: {
+                                    self.emailTextField.center.x += self.view.bounds.width
+                                    self.passwordTextField.center.x -= self.view.bounds.width
+            }, completion: nil)
+        
+        UIView.animateWithDuration(1.0, delay: 2.0,
+                                   options: [],
+                                   animations: {
+                                    self.loginButton.alpha = 1.0
+            }, completion: nil)
+        
+        UIView.animateWithDuration(0.5, delay: 0.6, options: [], animations: {
+            self.cloud1.alpha = 1.0
+            }, completion: nil)
+        
+        UIView.animateWithDuration(0.5, delay: 0.8, options: [], animations: {
+            self.cloud2.alpha = 1.0
+            }, completion: nil)
+        
+        UIView.animateWithDuration(0.5, delay: 1.0, options: [], animations: {
+            self.cloud3.alpha = 1.0
+            }, completion: nil)
+        
+        UIView.animateWithDuration(0.5, delay: 1.2, options: [], animations: {
+            self.cloud4.alpha = 1.0
+            }, completion: nil)
+        
+        animateTheClouds(cloud1)
+        animateTheClouds(cloud2)
+        animateTheClouds(cloud3)
+        animateTheClouds(cloud4)
 
+    }
+    
+    func animateTheClouds(cloud : UIImageView) {
+        let cloudMovingSpeed = 60.0/view.frame.size.width
+        let duration = (view.frame.size.width - cloud.frame.origin.x) * cloudMovingSpeed
+        UIView.animateWithDuration(NSTimeInterval(duration), delay: 0.0, options: .CurveLinear, animations: {
+            cloud.frame.origin.x = self.view.frame.size.width
+            }, completion: {_ in
+                cloud.frame.origin.x = -cloud.frame.size.width
+                self.animateTheClouds(cloud)
+        })
     }
     
     override func didReceiveMemoryWarning() {
